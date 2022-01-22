@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/handle/auth_methods.dart';
+import 'package:instagram_clone/screen/home_page_screen.dart';
 import 'package:instagram_clone/screen/resgister_screen.dart';
-import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/widget/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget{
@@ -23,7 +23,8 @@ class _LoginScreenState extends State<LoginScreen>{
     String res= await AuthMethods().userLogin(email: _emailController.text,
         password: _passwordController.text);
     if(res == 'success'){
-      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>const ResgisterScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>const HomePageScreen()));
+      // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>const ResgisterScreen()));
     }
   }
 
