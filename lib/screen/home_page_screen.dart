@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/handle/auth_methods.dart';
+import 'package:instagram_clone/screen/add_screen.dart';
 
 class HomePageScreen extends StatefulWidget{
   const HomePageScreen({Key? key}) : super(key: key);
-
   @override
   State<StatefulWidget> createState() => _HomePageScreenState();
 
 }
 
 class _HomePageScreenState extends State<HomePageScreen>{
-
   int _currenPage = 0;
 
   void selectPage(index){
@@ -25,9 +25,7 @@ class _HomePageScreenState extends State<HomePageScreen>{
     Center(
       child: Text('This is search', style: TextStyle(color: Colors.white),),
     ),
-    Center(
-      child: Text('This is add', style: TextStyle(color: Colors.white),),
-    ),
+    AddScreen(),
     Center(
       child: Text('This is favorite', style: TextStyle(color: Colors.white),),
     ),

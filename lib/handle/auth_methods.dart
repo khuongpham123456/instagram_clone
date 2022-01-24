@@ -1,8 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:instagram_clone/model/user.dart' as model;
 class AuthMethods{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+
+  Future<model.User> getUserInfo() async{
+    DocumentSnapshot snap = await _fireStore.collection('users').doc(_auth.currentUser!.uid).get();
+    var snapShot = snap.data() as Map<String, dynamic>;
+    return model.User.fromSnap(snap);
+  }
 
   Future<String> userResgister({
     required String email,
@@ -17,15 +24,18 @@ class AuthMethods{
             email: email,
             password: password
         );
-        await _fireStore.collection('users').doc(userCredential.user!.uid).set({
-          'email':email,
-          'uid' : userCredential.user!.uid,
-          'password': password,
-          'username':username,
-          'address':address,
-          'followers' :[],
-          'following': []
-        });
+
+        model.User user = model.User(
+            email: email,
+            uid: userCredential.user!.uid,
+            password: password,
+            username: username,
+            address: address,
+            followers: [],
+            following: [],
+        );
+
+        await _fireStore.collection('users').doc(userCredential.user!.uid).set(user.toJson());
         res = "success";
       }
       }on FirebaseAuthException catch (e) {

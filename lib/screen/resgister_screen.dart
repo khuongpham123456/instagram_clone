@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/handle/auth_methods.dart';
-import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/widget/text_field_input.dart';
+import 'home_page_screen.dart';
 
 class ResgisterScreen extends StatefulWidget{
   const ResgisterScreen({Key? key}) : super(key: key);
@@ -32,7 +32,9 @@ class _ResgisterScreenState extends State<ResgisterScreen>{
         password: _passwordController.text,
         username: _usernameController.text,
         address: _addressController.text);
-    print(res);
+    if(res == 'success'){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>const HomePageScreen()));
+    }
   }
 
   @override
